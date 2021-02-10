@@ -524,8 +524,10 @@ class WebEngineVersions:
 
     @classmethod
     def from_ua(cls, ua: websettings.UserAgent) -> 'WebEngineVersions':
+        webengine_version = (None if ua.qt_version is None
+                             else utils.parse_version(ua.qt_version))
         return cls(
-            webengine=utils.parse_version(ua.qt_version),
+            webengine=webengine_version,
             chromium=ua.upstream_browser_version,
             source='UA',
         )
